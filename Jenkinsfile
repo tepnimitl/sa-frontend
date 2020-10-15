@@ -38,13 +38,13 @@ pipeline {
         stage('Test Image') {
             steps {
                 echo 'Testing....'
-                sh 'docker images | grep $DOCKERREPO | grep $BUILD_NUMBER'
+                sh 'sudo docker images | grep $DOCKER_REPO | grep $BUILD_NUMBER'
             }
         }
         stage('Clean') {
             steps {
-                echo 'Clening....'
-                sh "docker rmi $registry:$BUILD_NUMBER"
+                echo 'Cleaning....'
+                sh 'sudo docker rmi $registry:$BUILD_NUMBER'
             }
         }
     }
