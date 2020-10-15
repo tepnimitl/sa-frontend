@@ -6,7 +6,7 @@ pipeline {
             steps {
                 echo 'Building..'
                 sh 'df -Ph'
-                sh 'dnf install -y nodejs npm'
+                sh 'sudo dnf install -y nodejs npm'
                 sh 'echo "Building JS."'
                 sh 'npm install'
                 sh 'npm run build'
