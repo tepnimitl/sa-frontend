@@ -2,6 +2,8 @@ pipeline {
   environment {
     DOCKER_USER_ID = "tepnimitl"
     DOCKERREPO = 'sentiment-analysis-frontend'
+    registry = "$DOCKER_USER_ID/$DOCKERREPO"
+    registryCredential = ‘dockerhub’
   }
   agent any
 
@@ -29,10 +31,15 @@ pipeline {
                 sh 'echo "$DOCKER_USER_ID/$DOCKERREPO:new"'
 
                 echo 'build Docker'
-                sh 'sudo docker build -t $DOCKER_USER_ID/$DOCKERREPO:new .'
+                sh 'sudo docker build -t $DOCKER_USER_ID/$DOCKERREPO:$BUILD_NUMBER .'
 
                 /*echo "push Docker"
-                *sudo docker push $DOCKER_USER_ID/$DOCKERREPO:new*/
+                *sudo docker push $DOCKER_USER_ID/$DOCKERREPO:$BUILD_NUMBER*/
+                script {
+                  docker.withRegistry( '', registryCredential ) {
+                    dockerImage.push()
+                  }
+                }
 
             }
         }
