@@ -5,8 +5,8 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building..'
-                sh 'pwd'
-                sh 'ls'
+                df -Ph
+                bash 'dnf install -y nodejs npm'
             }
         }
         stage('Test') {
