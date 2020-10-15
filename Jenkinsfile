@@ -23,11 +23,12 @@ pipeline {
             steps {
                 echo 'Testing..'
 
-                sh 'docker info'
+                sh 'sudo docker info'
 
                 echo "$DOCKER_USER_ID/$DOCKERREPO:new"
+                sh 'echo "$DOCKER_USER_ID/$DOCKERREPO:new"'
 
-                echo "build Docker"
+                echo 'build Docker'
                 sh 'sudo docker build -t $DOCKER_USER_ID/$DOCKERREPO:new .'
 
                 /*echo "push Docker"
