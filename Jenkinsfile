@@ -18,6 +18,12 @@ pipeline {
                 sh 'npm run build'
             }
         }
+        stage('Test App') {
+            steps {
+                echo 'Testing..'
+                sh 'grep sentiment ./src/App.js'
+            }
+        }
         stage('Build Image') {
             steps {
 
