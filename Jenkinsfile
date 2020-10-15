@@ -5,13 +5,13 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building..'
-                bash 'df -Ph'
-                bash 'dnf install -y nodejs npm'
-                bash 'echo "Building JS."'
-                bash 'npm install'
-                bash 'npm run build'
-                bash 'touch hello.txt'
-                bash 'ls $PWD/hello.txt'
+                sh 'df -Ph'
+                sh 'dnf install -y nodejs npm'
+                sh 'echo "Building JS."'
+                sh 'npm install'
+                sh 'npm run build'
+                sh 'touch hello.txt'
+                sh 'ls $PWD/hello.txt'
             }
         }
         stage('Test') {
