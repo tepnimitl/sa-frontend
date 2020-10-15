@@ -1,8 +1,8 @@
 pipeline {
   environment {
     DOCKER_USER_ID = "tepnimitl"
-    DOCKERREPO = 'sentiment-analysis-frontend'
-    registry = "$DOCKER_USER_ID/$DOCKERREPO"
+    DOCKER_REPO = 'sentiment-analysis-frontend'
+    registry = "$DOCKER_USER_ID/$DOCKER_REPO"
     registryCredential = 'dockerhub'
     dockerImage = ''
   }
@@ -12,33 +12,21 @@ pipeline {
         stage('Build App') {
             steps {
                 echo 'Building..'
-                sh 'df -Ph'
                 sh 'sudo dnf install -y nodejs npm'
-                sh 'echo "Building JS."'
+                echo "Building ReacJS.."
                 sh 'npm install'
                 sh 'npm run build'
-                sh 'touch hello.txt'
-                sh 'ls $PWD/hello.txt'
             }
         }
         stage('Build Image') {
-            /* docker build on command line */
             steps {
-                echo 'Testing..'
 
-                sh 'sudo docker info'
-
-                echo "$DOCKER_USER_ID/$DOCKERREPO:new"
-                sh 'echo "$DOCKER_USER_ID/$DOCKERREPO:new"'
-
-                echo 'build Docker'
-                /*sh 'sudo docker build -t $DOCKER_USER_ID/$DOCKERREPO:$BUILD_NUMBER .'*/
+                echo 'Build Docker'
                 script {
                   dockerImage = docker.build registry + ":$BUILD_NUMBER"
                 }
 
-                /*echo "push Docker"
-                *sudo docker push $DOCKER_USER_ID/$DOCKERREPO:$BUILD_NUMBER*/
+                echo "Push Docker"
                 script {
                   docker.withRegistry( '', registryCredential ) {
                     dockerImage.push()
@@ -50,12 +38,13 @@ pipeline {
         stage('Test Image') {
             steps {
                 echo 'Testing....'
-                sh 'echo "Test Passed"'
+                sh 'docker images | grep $DOCKERREPO | grep $BUILD_NUMBER'
             }
         }
-        stage('Deploy') {
+        stage('Clean') {
             steps {
-                echo 'Deploying....'
+                echo 'Clening....'
+                sh "docker rmi $registry:$BUILD_NUMBER"
             }
         }
     }
