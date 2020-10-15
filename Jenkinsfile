@@ -3,7 +3,7 @@ pipeline {
     DOCKER_USER_ID = "tepnimitl"
     DOCKERREPO = 'sentiment-analysis-frontend'
     registry = "$DOCKER_USER_ID/$DOCKERREPO"
-    registryCredential = ‘dockerhub’
+    registryCredential = 'dockerhub'
   }
   agent any
 
