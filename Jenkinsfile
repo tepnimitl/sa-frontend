@@ -1,9 +1,9 @@
-pipeline {
+/*pipeline {*/
+node {
     agent any
+    def app
 
     stages {
-      def app
-      
         stage('Build App') {
             steps {
                 echo 'Building..'
