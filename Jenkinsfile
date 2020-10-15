@@ -1,7 +1,5 @@
-/*pipeline {*/
-node {
+pipeline {
     agent any
-    def app
 
     stages {
         stage('Build App') {
@@ -20,15 +18,13 @@ node {
             /* docker build on command line */
             steps {
                 echo 'Testing..'
-                app = docker.build("tepnimitl/sentiment-analysis-frontend")
+                docker.build("tepnimitl/sentiment-analysis-frontend")
             }
         }
         stage('Test Image') {
             steps {
                 echo 'Testing....'
-                app.inside {
-                  sh 'echo "Test Passed"'
-                }
+                sh 'echo "Test Passed"'
             }
         }stage('Deploy') {
             steps {
