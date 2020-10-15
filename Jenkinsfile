@@ -1,4 +1,8 @@
 pipeline {
+  environment {
+    DOCKER_USER_ID = "tepnimitl"
+    DOCKERREPO = 'sentiment-analysis-frontend'
+  }
     agent any
 
     stages {
@@ -18,7 +22,17 @@ pipeline {
             /* docker build on command line */
             steps {
                 echo 'Testing..'
-                docker.build("tepnimitl/sentiment-analysis-frontend")
+
+                sh 'docker info'
+
+                echo "$DOCKER_USER_ID/$DOCKERREPO:new"
+
+                echo "build Docker"
+                sh 'sudo docker build -t $DOCKER_USER_ID/$DOCKERREPO:new .'
+
+                /*echo "push Docker"
+                *sudo docker push $DOCKER_USER_ID/$DOCKERREPO:new*/
+
             }
         }
         stage('Test Image') {
