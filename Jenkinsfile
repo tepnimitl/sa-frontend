@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     stages {
-        stage('Build') {
+        stage('Build App') {
             steps {
                 echo 'Building..'
                 sh 'df -Ph'
@@ -14,12 +14,21 @@ pipeline {
                 sh 'ls $PWD/hello.txt'
             }
         }
-        stage('Test') {
+        stage('Build Image') {
+            /* docker build on command line */
             steps {
                 echo 'Testing..'
+                app = docker.build("tepnimitl/sentiment-analysis-frontend")
             }
         }
-        stage('Deploy') {
+        stage('Test Image') {
+            steps {
+                echo 'Testing....'
+                app.inside {
+                  sh 'echo "Test Passed"'
+                }
+            }
+        }stage('Deploy') {
             steps {
                 echo 'Deploying....'
             }
