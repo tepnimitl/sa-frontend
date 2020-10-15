@@ -3,7 +3,7 @@ pipeline {
     DOCKER_USER_ID = "tepnimitl"
     DOCKERREPO = 'sentiment-analysis-frontend'
   }
-    agent any
+  agent any
 
     stages {
         stage('Build App') {
@@ -40,7 +40,8 @@ pipeline {
                 echo 'Testing....'
                 sh 'echo "Test Passed"'
             }
-        }stage('Deploy') {
+        }
+        stage('Deploy') {
             steps {
                 echo 'Deploying....'
             }
