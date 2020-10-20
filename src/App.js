@@ -48,7 +48,7 @@ class App extends Component {
                     <Paper zDepth={1} className="content">
                         <h2>Sentiment Analyser</h2>
                         <TextField ref={ref => this.textField = ref} onKeyUp={this.onEnterPress.bind(this)}
-                                   hintText="Type your sentence."/>
+                                   hintText="Type your sentence. ex: I love you."/>
                         <RaisedButton  label="Send" style={style} onClick={this.analyzeSentence.bind(this)}/>
                         {polarityComponent}
                     </Paper>
