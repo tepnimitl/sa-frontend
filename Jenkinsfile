@@ -14,7 +14,7 @@ pipeline {
                 echo 'Building..'
                 //sh 'sudo dnf install -y nodejs npm'
                 echo "Building ReacJS.."
-                sh 'npm install'
+                //sh 'npm install'
                 sh 'npm run build'
             }
         }
