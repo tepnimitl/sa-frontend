@@ -12,7 +12,7 @@ pipeline {
         stage('Build App') {
             steps {
                 echo 'Building..'
-                sh 'sudo dnf install -y nodejs npm'
+                //sh 'sudo dnf install -y nodejs npm'
                 echo "Building ReacJS.."
                 sh 'npm install'
                 sh 'npm run build'
